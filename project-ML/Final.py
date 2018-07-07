@@ -1,7 +1,4 @@
 #Python Tkinter and Sqlite3 Login Form
-#Made By Namah Jain Form Youtube Channel All About Code
-#Please Subscribe To Our Youtube Channel.
-#https://www.youtube.com/channel/UCUGAq4ALoWW4PDU6Cm1riSg?view_as=subscriber
 
 #imports
 from tkinter import *
@@ -55,7 +52,7 @@ class main:
         result = c.fetchall()
         if result:
             self.logf.pack_forget()
-            self	.head['text'] = self.username.get() + '\n Loged In'
+            self.head['text'] = self.username.get() + '\n Loged In'
             self.head['pady'] = 150
             self.visible()
         else:
@@ -70,7 +67,8 @@ class main:
 
     def answer(self):
         print("hello world")
-        data = pd.read_csv("/home/godsclera/Desktop/project-ML/Manual-Data/Training.csv")
+        #reading training csv file
+        data = pd.read_csv("/home/mudit/project/Manual-Data/Training.csv")
         df = pd.DataFrame(data)
         cols = df.columns
         cols = cols[:-1]
@@ -78,23 +76,30 @@ class main:
 
         x = df[cols]
         y = df['prognosis']
-        x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.6, random_state=42)
-        test_data = pd.read_csv("/home/godsclera/Desktop/project-ML/Manual-Data/Testing.csv")
+        x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.1, random_state=42)
+        #reading testing csv file
+        test_data = pd.read_csv("/home/mudit/project/Manual-Data/Testing.csv")
         testx = test_data[cols]
         testy = test_data['prognosis']
+        #creating tkinter window
         master = Tk()
         master.title("Welcome to the Disease Detection Portal  ")
         blank = Entry(master,width=25,bd=2)
         blank.grid(row=20, column=18)
         def var_states():
                 Label(master, text="Symptoms noticed :",font="arial 16 bold").grid(row=2, sticky=W)
-                x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.6, random_state=42)
+                #splitting test data and train data
+                x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.1, random_state=42)
                 print ("DecisionTree")
+                #appliying decision tree classifier
                 dt = DecisionTreeClassifier()
+                #now fiting data into classifier
                 clf_dt=dt.fit(x_train,y_train)
                 global r
                 r=np.array([var1.get(),var2.get(),var3.get(),var4.get(),var5.get(),var6.get(),var7.get(),var8.get(),var9.get(),var10.get(),var11.get(),var12.get(),var13.get(),var14.get(),var15.get(),var16.get(),var17.get(),var18.get(),var19.get(),var20.get(),var21.get(),var22.get(),var23.get(),var24.get(),var25.get(),var26.get(),var27.get(),var28.get(),var29.get(),var30.get(),var31.get(),var32.get(),var33.get(),var34.get(),var35.get(),var36.get(),var37.get(),var38.get(),var39.get(),var40.get(),var41.get(),var42.get(),var43.get(),var44.get(),var45.get(),var46.get(),var47.get(),var48.get(),var49.get(),var50.get(),var51.get(),var52.get(),var53.get(),var54.get(),var55.get(),var56.get(),var57.get(),var58.get(),var59.get(),var60.get(),var61.get(),var62.get(),var63.get(),var64.get(),var65.get(),var66.get(),var67.get(),var68.get(),var69.get(),var70.get(),var71.get(),var72.get(),var73.get(),var74.get(),var75.get(),var76.get(),var77.get(),var78.get(),var79.get(),var80.get(),var81.get(),var82.get(),var83.get(),var84.get(),var85.get(),var86.get(),var87.get(),var88.get(),var89.get(),var90.get(),var91.get(),var92.get(),var93.get(),var94.get(),var95.get(),var96.get(),var97.get(),var98.get(),var99.get(),var100.get(),var101.get(),var102.get(),var103.get(),var104.get(),var105.get(),var106.get(),var107.get(),var108.get(),var109.get(),var110.get(),var111.get(),var112.get(),var113.get(),var114.get(),var115.get(),var116.get(),var117.get(),var118.get(),var119.get(),var120.get(),var121.get(),var122.get(),var123.get(),var124.get(),var125.get(),var126.get(),var127.get(),var128.get(),var129.get(),var130.get(),var131.get(),var132.get()])
+                #predicting output
                 output=clf_dt.predict([r])
+                #displaying output in blank space on tkinter window
                 blank.delete(0,END)
                 blank.insert(0,output)
         
@@ -591,5 +596,3 @@ if __name__ == '__main__':
     #root.geometry('400x350+300+300')
     main(root)
     root.mainloop()
-    
-    
